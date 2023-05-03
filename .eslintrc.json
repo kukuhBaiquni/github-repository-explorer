@@ -13,9 +13,7 @@
     "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
     "next",
-    "next/core-web-vitals",
-    "plugin:storybook/recommended",
-    "standard-with-typescript"
+    "next/core-web-vitals"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -110,5 +108,6 @@
         }
       }
     ]
-  }
+  },
+  "react/function-component-definition": [2, { "namedComponents": "function-declaration" }]
 }
