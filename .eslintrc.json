@@ -50,8 +50,7 @@
     "react/function-component-definition": [
       2,
       {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
+        "namedComponents": "function-declaration"
       }
     ],
     "jsx-quotes": ["warn", "prefer-single"],
@@ -108,6 +107,5 @@
         }
       }
     ]
-  },
-  "react/function-component-definition": [2, { "namedComponents": "function-declaration" }]
+  }
 }

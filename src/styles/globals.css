@@ -22,3 +22,15 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.collapsible:hover {
+  background-color: rgb(161, 161, 161);
+}
+
+.content {
+  @apply max-h-0 overflow-hidden transition-all duration-[0.2s];
+}
+
+.open {
+  @apply max-h-[80px] px-2 py-3;
+}

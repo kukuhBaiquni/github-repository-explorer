@@ -1,11 +1,16 @@
+/* eslint-disable react/no-this-in-sfc */
 import Head from 'next/head'
 import { Fragment } from 'react'
 import { Inter } from 'next/font/google'
-// import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const toggleCollapse = () => {
+    const content = document.getElementsByClassName('content')
+    content[0].classList.toggle('open')
+  }
+
   return (
     <Fragment>
       <Head>
@@ -20,16 +25,21 @@ export default function Home() {
             <input className='w-full bg-gray-200 py-2 px-2.5 border border-gray-400 rounded' type='search' />
             <button className='w-full mt-4 bg-sky-400 p-3 text-white rounded hover:bg-opacity-70' type='submit'>Search</button>
           </form>
-          <p className='mt-4 text-gray-600'>Showing users for "paw paw"</p>
+          <p className='mt-4 text-gray-600'>Showing users for &quot;paw paw&quot;</p>
           <div className='mt-4 flex flex-col gap-y-2'>
-            <button className='flex items-center justify-between w-full bg-gray-300 px-2 py-1' type='button'>
+            <button className='collapsible flex items-center justify-between w-full bg-gray-300 px-2 py-1' type='button' onClick={toggleCollapse}>
               <span>User test</span>
               <i className='bx bx-chevron-down text-4xl' />
             </button>
-            <div className='bg-zinc-400 p-2 ml-auto w-[95%]'>
-              <strong>Type-Fun</strong>
-              <p>Some repository description</p>
-              <i className='bx bxs-star' />
+            <div className='content bg-zinc-400 ml-auto w-[95%] flex justify-between items-start'>
+              <div>
+                <strong>Type-Fun</strong>
+                <p>Some repository description</p>
+              </div>
+              <div className='flex items-center gap-x-1'>
+                <strong className='text-md'>13</strong>
+                <i className='bx bxs-star text-md' />
+              </div>
             </div>
             <button className='flex items-center justify-between w-full bg-gray-300 px-2 py-1' type='button'>
               <span>User test</span>
