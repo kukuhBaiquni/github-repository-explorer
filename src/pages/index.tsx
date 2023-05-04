@@ -1,14 +1,53 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-this-in-sfc */
 import Head from 'next/head'
-import { Fragment } from 'react'
+import {
+  Fragment, useState, FormEvent, useRef,
+} from 'react'
 import { Inter } from 'next/font/google'
+import CollapsibleCard from '@/components/collapsible-card'
+import { useQueryClient } from 'react-query'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const toggleCollapse = () => {
+  const searchInput = useRef<HTMLInputElement | null>(null)
+
+  const queryClient = useQueryClient()
+
+  const [q, setQ] = useState('')
+
+  const toggleCollapse = (index: number) => {
     const content = document.getElementsByClassName('content')
-    content[0].classList.toggle('open')
+    const elements = Array.from(content)
+    elements.forEach((item, idx) => {
+      if (index === idx) {
+        item.classList.toggle('open')
+      } else {
+        item.classList.remove('open')
+      }
+    })
+  }
+
+  const onSearch = (evt: FormEvent) => {
+    evt.preventDefault()
+    const inputValue = searchInput.current
+    if (inputValue) {
+      if (inputValue.value) {
+        setQ(inputValue.value)
+      }
+    }
+  }
+
+  const clearData = () => {
+    queryClient.removeQueries('SEARCH_USER')
+    queryClient.clear()
+    const inputValue = searchInput.current
+    if (inputValue) {
+      inputValue.value = ''
+      inputValue.focus()
+    }
+    setQ('')
   }
 
   return (
@@ -21,31 +60,21 @@ export default function Home() {
       </Head>
       <main className={`${inter.className} bg-gray-300`}>
         <div className='h-screen bg-white max-w-md p-4 min-w mx-auto'>
-          <form>
-            <input className='w-full bg-gray-200 py-2 px-2.5 border border-gray-400 rounded' type='search' />
+          <h2 className='text-center text-xl mb-4'>Github Repository Explorer</h2>
+          <form onSubmit={onSearch}>
+            <input className='w-full bg-gray-200 py-2 px-2.5 border border-gray-400 rounded' placeholder='Search Github User' ref={searchInput} type='search' />
             <button className='w-full mt-4 bg-sky-400 p-3 text-white rounded hover:bg-opacity-70' type='submit'>Search</button>
           </form>
-          <p className='mt-4 text-gray-600'>Showing users for &quot;paw paw&quot;</p>
-          <div className='mt-4 flex flex-col gap-y-2'>
-            <button className='collapsible flex items-center justify-between w-full bg-gray-300 px-2 py-1' type='button' onClick={toggleCollapse}>
-              <span>User test</span>
-              <i className='bx bx-chevron-down text-4xl' />
-            </button>
-            <div className='content bg-zinc-400 ml-auto w-[95%] flex justify-between items-start'>
-              <div>
-                <strong>Type-Fun</strong>
-                <p>Some repository description</p>
-              </div>
-              <div className='flex items-center gap-x-1'>
-                <strong className='text-md'>13</strong>
-                <i className='bx bxs-star text-md' />
-              </div>
+          {q && (
+            <div className='mt-4 flex justify-between items-center'>
+              <p className='text-gray-600'>Showing users for &quot;{q}&quot;</p>
+              <button className='text-red-400' type='button' onClick={clearData}>Reset</button>
             </div>
-            <button className='flex items-center justify-between w-full bg-gray-300 px-2 py-1' type='button'>
-              <span>User test</span>
-              <i className='bx bx-chevron-down text-4xl' />
-            </button>
-          </div>
+          )}
+          <CollapsibleCard
+            query={q}
+            toggleCollapse={toggleCollapse}
+          />
         </div>
       </main>
     </Fragment>

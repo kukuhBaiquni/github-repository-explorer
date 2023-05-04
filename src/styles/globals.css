@@ -24,7 +24,7 @@ a {
 }
 
 .collapsible:hover {
-  background-color: rgb(161, 161, 161);
+  @apply bg-slate-300;
 }
 
 .content {
@@ -32,5 +32,7 @@ a {
 }
 
 .open {
-  @apply max-h-[80px] px-2 py-3;
+  @apply max-h-[300px] overflow-y-auto;
 }
+
+@import 'fancy-scroll.css'

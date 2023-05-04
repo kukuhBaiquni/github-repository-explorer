@@ -1,0 +1,20 @@
+@media only screen and (min-width: 576px) {
+  .fancy-scroll::-webkit-scrollbar {
+    @apply w-1.5 h-1.5;
+  }
+  .fancy-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  };
+
+  .fancy-scroll::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+
+  .fancy-scroll::-webkit-scrollbar-thumb {
+    @apply rounded bg-gray-300;
+  };
+
+  .fancy-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  };
+}
