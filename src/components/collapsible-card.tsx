@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from 'react-query'
 import { searchUser } from '@/api/search'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { useIsOnline } from 'react-use-is-online'
+import { toast } from 'react-toastify'
 import Loader from './loader'
 import CollapsibleCardContent from './collapsible-card-content'
 
@@ -12,6 +14,10 @@ type Props = {
 }
 
 export default function CollapsibleCard(props: Props) {
+  const initialOffline = useRef(false)
+
+  const { isOnline, isOffline } = useIsOnline()
+
   const { query, toggleCollapse } = props
   const [openIndex, setOpenIndex] = useState(-1)
 
@@ -31,10 +37,57 @@ export default function CollapsibleCard(props: Props) {
     toggleCollapse(index)
   }
 
+  useEffect(() => {
+    if (isOffline) {
+      toast.error('You\'re not connected to the internet!', {
+        position: 'bottom-right',
+        autoClose: 0,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      initialOffline.current = true
+    }
+  }, [isOffline])
+
+  useEffect(() => {
+    if (isOnline && initialOffline.current) {
+      toast.success('You\'re online now!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+  }, [isOnline])
+
+  useEffect(() => {
+    if (querySearchUser.isError) {
+      toast.error('An error has been occurred!', {
+        position: 'bottom-right',
+        autoClose: 0,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+  }, [querySearchUser.isError])
+
   const isLoading = querySearchUser.isLoading
     || querySearchUser.isFetching || querySearchUser.isRefetching
 
   const isNoData = querySearchUser.status === 'success' && querySearchUser.data?.items.length === 0
+
   return (
     <div className='h-[calc(100vh-25%)] overflow-y-hidden'>
       {isLoading && <Loader count={5} />}
@@ -55,8 +108,8 @@ export default function CollapsibleCard(props: Props) {
           />
         </div>
       ))}
-      {isNoData && !isLoading && (
-        <div className='h-full  flex items-center justify-center overflow-y-hidden'>
+      {isNoData && !isLoading && isOnline && (
+        <div className='h-full flex items-center justify-center overflow-y-hidden'>
           No Data
         </div>
       )}

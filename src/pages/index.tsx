@@ -4,11 +4,9 @@ import Head from 'next/head'
 import {
   Fragment, useState, FormEvent, useRef,
 } from 'react'
-import { Inter } from 'next/font/google'
 import CollapsibleCard from '@/components/collapsible-card'
 import { useQueryClient } from 'react-query'
-
-const inter = Inter({ subsets: ['latin'] })
+import { ToastContainer } from 'react-toastify'
 
 export default function Home() {
   const searchInput = useRef<HTMLInputElement | null>(null)
@@ -58,7 +56,7 @@ export default function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <main className={`${inter.className} bg-gray-300`}>
+      <main className='bg-gray-300'>
         <div className='h-screen bg-white max-w-md p-4 min-w mx-auto'>
           <h2 className='text-center text-xl mb-4'>Github Repository Explorer</h2>
           <form onSubmit={onSearch}>
@@ -77,6 +75,7 @@ export default function Home() {
           />
         </div>
       </main>
+      <ToastContainer />
     </Fragment>
   )
 }

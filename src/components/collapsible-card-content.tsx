@@ -9,6 +9,7 @@ import {
 } from 'react'
 import textEllipsis from '@/utils/text-ellipsis'
 import shortFormat from '@/utils/short-format'
+import { toast } from 'react-toastify'
 import Loader from './loader'
 
 type Props = {
@@ -38,6 +39,21 @@ export default function CollapsibleCardContent(props: Props) {
       queryUserRepos.refetch()
     }
   }, [openIndex])
+
+  useEffect(() => {
+    if (queryUserRepos.isError) {
+      toast.error('An error has been occurred!', {
+        position: 'bottom-right',
+        autoClose: 0,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+  }, [queryUserRepos.isError])
 
   const isLoading = queryUserRepos.isLoading
     || queryUserRepos.isFetching || queryUserRepos.isRefetching

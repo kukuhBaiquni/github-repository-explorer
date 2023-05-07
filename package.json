@@ -21,6 +21,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-loading-skeleton": "^3.3.0",
     "react-query": "^3.39.3",
+    "react-toastify": "^9.1.2",
+    "react-use-is-online": "^1.3.0",
     "typescript": "*",
     "use-debounce": "^9.0.4"
   },
