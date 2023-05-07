@@ -1,7 +1,11 @@
 /* eslint-disable no-undef */
-import { render } from '@testing-library/react'
+import { render, cleanup } from '@testing-library/react'
 import Loader from '../components/loader'
 import '@testing-library/jest-dom/extend-expect'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('Loader component', () => {
   const component = render(<Loader count={3} height={50} />)

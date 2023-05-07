@@ -77,7 +77,7 @@ export default function CollapsibleCardContent(props: Props) {
             <Fragment key={idx}>
               {
                 dataPage.map((dataRepo: any) => (
-                  <div className='bg-zinc-300 flex justify-between items-start px-2 py-3 h-[80px]' key={dataRepo.id}>
+                  <div className='bg-zinc-300 flex justify-between items-start px-2 py-3 h-[80px]' data-testid='repo-card' key={dataRepo.id}>
                     <div>
                       <strong className='text-sm'>{dataRepo.name}</strong>
                       <p className='w-full text-ellipsis text-xs lg:text-sm' title={dataRepo.description}>
@@ -96,7 +96,7 @@ export default function CollapsibleCardContent(props: Props) {
         }
         {isLoading && <Loader count={5} height={80} />}
         {isNoData && !isLoading && (
-          <div className='h-[80px] flex items-center justify-center overflow-y-hidden'>
+          <div className='h-[80px] flex items-center justify-center overflow-y-hidden' data-testid='repo-empty'>
             No Data
           </div>
         )}

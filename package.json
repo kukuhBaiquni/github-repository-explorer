@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
-    "test": "jest"
+    "lint": "eslint --fix --ext .js,.ts,.jsx,.tsx src",
+    "test": "jest --detectOpenHandles",
+    "cy": "cypress open"
   },
   "dependencies": {
     "@types/node": "18.16.3",
@@ -38,6 +39,7 @@
     "@typescript-eslint/parser": "^5.59.2",
     "autoprefixer": "^10.4.14",
     "babel-jest": "^29.5.0",
+    "cypress": "^12.11.0",
     "eslint": "^8.0.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "^13.3.4",

@@ -92,7 +92,7 @@ export default function CollapsibleCard(props: Props) {
     <div className='h-[calc(100vh-25%)] overflow-y-hidden'>
       {isLoading && <Loader count={5} />}
       {!isLoading && querySearchUser.data?.items.map((item: any, idx:number) => (
-        <div className='mt-4 flex flex-col gap-y-2' key={item.id}>
+        <div className='mt-4 flex flex-col gap-y-2' data-testid='user-card' key={item.id}>
           <button
             className='collapsible transition-all flex items-center justify-between w-full bg-gray-200 px-2 py-1'
             type='button'
@@ -109,7 +109,7 @@ export default function CollapsibleCard(props: Props) {
         </div>
       ))}
       {isNoData && !isLoading && isOnline && (
-        <div className='h-full flex items-center justify-center overflow-y-hidden'>
+        <div className='h-full flex items-center justify-center overflow-y-hidden' data-testid='user-empty'>
           No Data
         </div>
       )}
