@@ -1,6 +1,6 @@
 import Skeleton from 'react-loading-skeleton'
 
-type Props = {
+export type Props = {
   count: number
   height?: number
 }

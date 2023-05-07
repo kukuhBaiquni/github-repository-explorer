@@ -25,10 +25,7 @@ export default function CollapsibleCardContent(props: Props) {
     ({ pageParam = 1 }) => searchUserRepos(username, pageParam),
     {
       enabled: index === openIndex,
-      getNextPageParam: (_, pgs) => {
-        console.log(pgs)
-        return pgs.length + 1
-      },
+      getNextPageParam: (_, pgs) => pgs.length + 1,
     },
   )
 
@@ -55,8 +52,6 @@ export default function CollapsibleCardContent(props: Props) {
         endMessage={null}
         hasMore
         loader={null}
-        // next={debounceLoadMore}
-        // next={() => searchUserRepos('kukuhbaiquni', 1)}
         next={debounceLoadMore}
         scrollThreshold={0.9}
         scrollableTarget={`infinite-scroll-${index}`}
